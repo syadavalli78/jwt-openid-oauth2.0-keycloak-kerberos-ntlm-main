@@ -5,7 +5,7 @@ pipeline {
         stage('Clean') {
             steps {
                 echo "Clean Started"
-                sh(/mvn -file spring-boot-jwt\/pom.xml clean/)
+                bat(/mvn -file spring-boot-jwt\/pom.xml clean/)
                 echo "Clean End"
             }
         }
@@ -13,7 +13,7 @@ pipeline {
         stage('Compile') {
             steps {
                 echo "Code Compilation Started"
-                sh(/mvn -file spring-boot-jwt\/pom.xml compile/)
+                bat(/mvn -file spring-boot-jwt\/pom.xml compile/)
                 echo "Code Compilation End"
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Test Started"
-                sh(/mvn -file spring-boot-jwt\/pom.xml org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true/)
+                 bat(/mvn -file spring-boot-jwt\/pom.xml org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true/)
                 echo "Test End"
             }
         }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo "SonarQube Started"
                 withSonarQubeEnv('localSonarQube') {
-                    sh(/mvn -file spring-boot-jwt\/pom.xml  sonar:sonar  -Dmaven.test.skip=true/)
+                    bat(/mvn -file spring-boot-jwt\/pom.xml  sonar:sonar  -Dmaven.test.skip=true/)
                 }
                 echo "SonarQube End"
             }
@@ -55,7 +55,7 @@ pipeline {
         stage('Artifact Publish') {
             steps {
                 echo "Artifact Publish to Nexus Started"
-                sh(/mvn -file spring-boot-jwt\/pom.xml  deploy -Dmaven.test.skip=true/)
+                bat(/mvn -file spring-boot-jwt\/pom.xml  deploy -Dmaven.test.skip=true/)
                 echo "Artifact Publish to Nexus End"
             }
         }
@@ -63,8 +63,8 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo "Build Image Started"
-                sh(/mvn -file spring-boot-jwt\/pom.xml package -Dmaven.test.skip=true/)
-                sh(/docker build --build-arg VER=0.0.1 -f spring-boot-jwt\/dockerfile -t spring\/spring-boot-jwt:latest ./)
+                bat(/mvn -file spring-boot-jwt\/pom.xml package -Dmaven.test.skip=true/)
+                bat(/docker build --build-arg VER=0.0.1 -f spring-boot-jwt\/dockerfile -t spring\/spring-boot-jwt:latest ./)
                 echo "Build Image End"
             }
         }
@@ -72,7 +72,7 @@ pipeline {
         stage('Scan Image') {
             steps {
                 echo "Scan Image Started"
-                sh(/docker scan --file spring-boot-jwt\/dockerfile --json spring\/spring-boot-jwt:latest > spring-spring-boot-jwt_latest.json/)
+                bat(/docker scan --file spring-boot-jwt\/dockerfile --json spring\/spring-boot-jwt:latest > spring-spring-boot-jwt_latest.json/)
                 echo "Scan Image End"
             }
         }
@@ -80,7 +80,7 @@ pipeline {
         stage('Tag Image') {
             steps {
                 echo "Tag Image Started"
-                sh(/docker tag spring\/spring-boot-jwt:latest hub.docker.local:5000\/spring\/spring-boot-jwt:latest/)
+                bat(/docker tag spring\/spring-boot-jwt:latest hub.docker.local:5000\/spring\/spring-boot-jwt:latest/)
                 echo "Tag Image End"
             }
         }
@@ -88,7 +88,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 echo "Push Image Started"
-                sh(/docker push hub.docker.local:5000\/spring\/spring-boot-jwt:latest/)
+                bat(/docker push hub.docker.local:5000\/spring\/spring-boot-jwt:latest/)
                 echo "Push Image End"
             }
         }
