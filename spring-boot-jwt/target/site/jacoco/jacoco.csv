@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+spring-boot-jwt,com.sk.entities,User,38,0,0,0,16,0,11,0,11,0
+spring-boot-jwt,com.sk.service,JwtUserDetailsService,47,0,0,0,3,0,3,0,3,0
+spring-boot-jwt,com.sk,SpringBootHelloWorldApplication,90,0,0,0,14,0,4,0,4,0
+spring-boot-jwt,com.sk.model,JwtRequest,26,0,0,0,12,0,6,0,6,0
+spring-boot-jwt,com.sk.model,JwtResponse,9,0,0,0,4,0,2,0,2,0
+spring-boot-jwt,com.sk.controller,HelloWorldController,5,0,0,0,2,0,2,0,2,0
+spring-boot-jwt,com.sk.controller,JwtAuthenticationController,57,0,0,0,15,0,3,0,3,0
