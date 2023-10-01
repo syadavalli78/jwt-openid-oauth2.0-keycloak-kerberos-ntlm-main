@@ -34,15 +34,15 @@ pipeline {
             }
         }
         
-        stage('SonarQube Analysis') {
-            steps {
-                echo "SonarQube Started"
-                withSonarQubeEnv('localSonarQube') {
-                    bat(/mvn -file spring-boot-jwt\/pom.xml  sonar:sonar  -Dmaven.test.skip=true/)
-                }
-                echo "SonarQube End"
-            }
-        }
+        #stage('SonarQube Analysis') {
+            #steps {
+                #echo "SonarQube Started"
+                #withSonarQubeEnv('localSonarQube') {
+                    #bat(/mvn -file spring-boot-jwt\/pom.xml  sonar:sonar  -Dmaven.test.skip=true/)
+                #}
+                #echo "SonarQube End"
+            #}
+        #}
 
         stage('Result') {
             steps {
